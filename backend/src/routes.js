@@ -1,25 +1,35 @@
 const express = require('express');
+const crypto = require('crypto');
+
+const connection = require('./database/connection')
 
 const routes = express.Router();
 
-/* 
-Tipo de parâmetros
 
-Query Params: depois do ?
-Route Params: Identifica recursos
-Requesty Body: Corpo da requisição
-
+/*
+** Tipo de parâmetros
+** 
+** Query Params: depois do ?
+** Route Params: Identifica recursos
+** Requesty Body: Corpo da requisição
+** 
 */
 
-routes.get('/u/:id', (request, response) => {
-    const params = request.params;
+routes.post('/ongs', async (request, response) => {
+    const { name, email, whatsapp, city, uf } = request.body;
 
-    console.log(params);
+    const id = crypto.randomBytes(4).toString('HEX');
 
-    return response.json({
-        evento:'Semana OmiStack 11',
-        aluno: "Otavio C "
+    await connection('ongs').insert({
+        id,
+        name,
+        email,
+        whatsapp,
+        city,
+        uf
     });
+
+    return response.json({ id });
 });
 
 module.exports = routes;

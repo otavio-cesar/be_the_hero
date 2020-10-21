@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "migrate_latest":"node npm_scripts/migrate_latest"
+    "migrate_latest":"node npm_scripts/migrate_latest",
+    "migrate_up":"node npm_scripts/migrate_up",
+    "migrate_rollback":"node npm_scripts/migrate_rollback",
+    "migrate_create":"node npm_scripts/migrate_create",
+    "migrate_down":"node npm_scripts/migrate_down",
+    "migrate_list":"node npm_scripts/migrate_list"
   },
   "keywords": [],
   "author": "",
