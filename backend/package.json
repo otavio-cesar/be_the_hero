@@ -5,17 +5,18 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/index.js",
-    "migrate_latest":"node npm_scripts/migrate_latest",
-    "migrate_up":"node npm_scripts/migrate_up",
-    "migrate_rollback":"node npm_scripts/migrate_rollback",
-    "migrate_create":"node npm_scripts/migrate_create",
-    "migrate_down":"node npm_scripts/migrate_down",
-    "migrate_list":"node npm_scripts/migrate_list"
+    "migrate_latest": "node npm_scripts/migrate_latest",
+    "migrate_up": "node npm_scripts/migrate_up",
+    "migrate_rollback": "node npm_scripts/migrate_rollback",
+    "migrate_create": "node npm_scripts/migrate_create",
+    "migrate_down": "node npm_scripts/migrate_down",
+    "migrate_list": "node npm_scripts/migrate_list"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.21.6",
     "sqlite3": "^5.0.0"
