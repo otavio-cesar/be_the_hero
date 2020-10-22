@@ -1,73 +1,77 @@
-import React from 'react';
-import { FiPower, FiTrash2 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { FiPower, FiArrowLeft } from 'react-icons/fi';
+import { Link, useHistory } from 'react-router-dom';
 
 import './styles.css';
+
+import api from '../../services/api';
 
 import logoImg from '../../assets/logo.svg'
 
 export default function NewIncident() {
+    const history = useHistory();
+
+    const [titulo, setTitulo] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [valor, setValor] = useState('');
+
+    const ongId = localStorage.getItem('ongId');
+
+    async function handleNewIncident(e) {
+        e.preventDefault();
+
+        const data = {
+            title: titulo,
+            description: descricao,
+            value: valor
+        }
+
+        try {
+            await api.post('incidents', data, {
+                headers: {
+                    Authorization: ongId
+                }
+            });
+
+            history.push('/profile')
+        } catch (err) {
+            alert('Erro no cadastro, Tente novamente');
+        }
+    }
+
     return (
-        <div className="profile-container">
-            <header>
-                <img src={logoImg} alt="Be The Hero"></img>
-                <span>Bem vinda, APDA</span>
+        <div className="new-incident-container">
+            <div className="content">
+                <section >
+                    <img src={logoImg} alt="Be The Hero"></img>
+                    <h1>Cadastrar novo caso</h1>
+                    <p>Descreva o caso detalhadamente para encontrar um herói para resolver isso.</p>
 
-                <Link className="button" to="/incidents/new">Cadastrar novo caso</Link>
+                    <Link to="/profile" className="back-link" >
+                        <FiArrowLeft size={16} color="#e02041" />
+                        Voltar para home
+                    </Link>
+                </section>
 
-                <button type="button">
-                    <FiPower size={18} color="#e0204i" />
-                </button>
-            </header>
+                <form onSubmit={handleNewIncident}>
+                    <input
+                        placeholder="Título do caso"
+                        value={titulo}
+                        onChange={e => setTitulo(e.target.value)} />
 
-            <h1>Casos cadastrados</h1>
+                    <textarea
+                        placeholder="Descrição"
+                        value={descricao}
+                        onChange={e => setDescricao(e.target.value)} />
 
-            <ul>
-                <li>
-                    <strong>CASO:</strong>
-                    <p>Caso teste</p>
+                    <input
+                        placeholder="Valor em reais"
+                        value={valor}
+                        onChange={e => setValor(e.target.value)} />
 
-                    <strong>DESCRIÇÃO:</strong>
-                    <p>Caso descrição</p>
-
-                    <strong>VALOR:</strong>
-                    <p>R$ 120,00</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3"/>
-                    </button>
-                </li>
-
-                <li>
-                    <strong>CASO:</strong>
-                    <p>Caso teste</p>
-
-                    <strong>DESCRIÇÃO:</strong>
-                    <p>sdf</p>
-
-                    <strong>VALOR:</strong>
-                    <p>R$ 120,00</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3"></FiTrash2>
-                    </button>
-                </li>
-            
-                <li>
-                    <strong>CASO:</strong>
-                    <p>Caso teste</p>
-
-                    <strong>DESCRIÇÃO:</strong>
-                    <p>sdf</p>
-
-                    <strong>VALOR:</strong>
-                    <p>R$ 120,00</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3"></FiTrash2>
-                    </button>
-                </li>
-            </ul>
+                    <button className="button" type="submit">Cadastrar</button>
+                </form>
+            </div>
         </div>
     );
 }
