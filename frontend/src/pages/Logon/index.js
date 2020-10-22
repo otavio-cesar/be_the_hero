@@ -13,19 +13,17 @@ export default function Logon() {
     const [id, setId] = useState('');
     const history = useHistory();
 
-    async function handleLogin() {
+    async function handleLogin(e) {
         e.preventDefault();
 
-        const response = await api.post('sessions', { id });
-
         try {
-            alert(`Seu ID de acesso: ${response.data.id}`);
+            const response = await api.post('session', { id });
 
             localStorage.setItem('ongId', id)
             localStorage.setItem('ongName', response.data.name);
 
-            history.pushState('/profile');
-        } catch (e) {
+            history.push('/profile');
+        } catch (error) {
             alert('Falha no login, tente novamente.');
         }
     }
@@ -35,7 +33,7 @@ export default function Logon() {
             <section className="form">
                 <img src={logoImg} alt="Logo"></img>
 
-                <form>
+                <form onSubmit={handleLogin}>
                     <h1>Faça seu logon</h1>
                     <input
                         placeholder="Sua ID"

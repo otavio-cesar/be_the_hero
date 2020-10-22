@@ -7,7 +7,6 @@ import './styles.css';
 import logoImg from '../../assets/logo.svg'
 import api from '../../services/api'
 
-
 export default function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
