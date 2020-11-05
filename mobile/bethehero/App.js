@@ -8,7 +8,11 @@
 import SplashScreen from 'react-native-splash-screen';
 
 import React, { useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
+
+import 'react-native-gesture-handler';
+
+import Routes from './src/routes'
 
 export default function App() {
   useEffect(() => {
@@ -17,9 +21,7 @@ export default function App() {
 
   return (
     <>
-      <View style={styles.container}>
-        <Text style={styles.title}>Hello OmniStack</Text>
-      </View>
+      <Routes/>
     </>
   );
 };
